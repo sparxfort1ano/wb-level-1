@@ -12,10 +12,10 @@ func worker(i int, sendCh <-chan int) {
 	}
 }
 
-func producer(rcvCH chan<- int) {
+func producer(rcvCh chan<- int) {
 	var x int = 1
 	for {
-		rcvCH <- x
+		rcvCh <- x
 		x++
 		time.Sleep(500 * time.Millisecond) // чтобы в момент времени не выводилось на консоль очень много сообщений
 	}
