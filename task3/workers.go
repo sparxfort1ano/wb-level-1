@@ -6,9 +6,8 @@ import (
 )
 
 func worker(i int, sendCh <-chan int) {
-	for {
-		x := <-sendCh
-		fmt.Println("Воркер номер", i, "вывел", x)
+	for x := range sendCh {
+		fmt.Println("Воркер номер", i+1, "вывел", x)
 	}
 }
 
