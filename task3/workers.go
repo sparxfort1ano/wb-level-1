@@ -8,12 +8,17 @@ import (
 func worker(i int, sendCh <-chan int) {
 	for {
 		x := <-sendCh
-		fmt.Println("Горутина номер", i, "вывела", x)
+		fmt.Println("Воркер номер", i, "вывел", x)
 	}
 }
 
-func producer(x int, rcvCH chan<- int) {
-	rcvCH <- x
+func producer(rcvCH chan<- int) {
+	var x int = 1
+	for {
+		rcvCH <- x
+		x++
+		time.Sleep(500 * time.Millisecond) // чтобы в момент времени не выводилось на консоль очень много сообщений
+	}
 }
 
 func main() {
@@ -27,10 +32,7 @@ func main() {
 		go worker(i, ch) // n воркеров читают данные из канала
 	}
 
-	var x int = 1
-	for {
-		producer(x, ch) // бесконечно кладем данные в канал
-		x++
-		time.Sleep(500 * time.Millisecond) // чтобы в момент времени не выводилось на консоль очень много сообщений
-	}
+	producer(ch) // бесконечно кладем данные в канал
+
+	// Ctrl + C для выхода
 }
