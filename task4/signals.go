@@ -19,13 +19,15 @@ func worker(i int, sendCh <-chan int, wg *sync.WaitGroup) {
 }
 
 func producer(rcvCh chan<- int, ctx context.Context) {
-	var x int = 1
+	ticker := time.NewTicker(500 * time.Millisecond) // чтобы в момент времени не выводилось на консоль очень много сообщений
+	defer ticker.Stop()
 
+	var x int = 1
 	for {
 		select {
 		case <-ctx.Done(): // ждет SIGINT
 			return
-		case <-time.After(500 * time.Millisecond): // чтобы в момент времени не выводилось на консоль очень много сообщений
+		case <-ticker.C: // тикает каждые полсекунды
 			rcvCh <- x
 			x++
 		}
