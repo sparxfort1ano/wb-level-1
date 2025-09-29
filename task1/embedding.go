@@ -6,21 +6,25 @@ type human struct {
 	name string
 	age  int
 }
-
-func (h human) greet() {
-	fmt.Printf("Hello, my name is %s and I am %d years old.\n", h.name, h.age)
-}
-
 type action struct {
-	human     // вместо human Human
+	human     // embedding: вместо human Human
 	isSolving bool
 }
 
+func (person *human) setAge(age int) {
+	person.age = age
+}
+func (h action) greet() {
+	fmt.Printf("yo, my name's %s and i'm %d years old.\nwhat do you think i'm doing? %t, i'm solvin' WB tasks rn ", h.name, h.age, h.isSolving)
+	// embedding: вместо h.human.name и h.human.age
+}
+
 func main() {
-	action := action{human{"Bob", 30}, true}
-	fmt.Println(action.name, action.age) // вместо action.human.name и action.human.age
+	action := action{human{name: "Deadinside"}, true}
 
-	fmt.Println(action.isSolving)
+	action.setAge(20) // embedding: тип action вызывает метод *human
 
-	action.greet() // вместо action.human.greet()
+	fmt.Println(action.name, action.age) // embedding: вместо action.human.name и action.human.age
+
+	action.greet()
 }
