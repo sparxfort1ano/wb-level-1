@@ -25,7 +25,7 @@ func (s Set) Contains(val int) bool {
 
 func main() {
 	// User defines slices sizes.
-	fmt.Print("Enter the size of first arrays: ")
+	fmt.Print("Enter the size of first array: ")
 	var n1 int
 	if _, err := fmt.Scan(&n1); err != nil {
 		log.Println(err)
@@ -37,7 +37,7 @@ func main() {
 		return
 	}
 
-	fmt.Print("Enter the size of second arrays: ")
+	fmt.Print("Enter the size of second array: ")
 	var n2 int
 	if _, err := fmt.Scan(&n2); err != nil {
 		log.Println(err)
