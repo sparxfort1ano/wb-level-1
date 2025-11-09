@@ -9,7 +9,7 @@ import (
 	"math/rand"
 )
 
-// Set represents a set of strings.
+// Set represents a set of integers.
 type Set map[int]struct{}
 
 // Add adds an element to the set.
