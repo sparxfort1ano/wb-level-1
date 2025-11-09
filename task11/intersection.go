@@ -91,7 +91,7 @@ func main() {
 		return
 	}
 
-	// Intersection set output
+	// Intersection set output.
 	fmt.Println("The intersection:")
 	for val := range result {
 		fmt.Printf("%d ", val)
